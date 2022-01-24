@@ -2,8 +2,6 @@
 
 STATE=`cat $HOME/.pomodoro`
 
-echo $STATE
-
 if [ $STATE = 0 ] 
 then
 	echo -ne '1\0' > $HOME/.pomodoro
