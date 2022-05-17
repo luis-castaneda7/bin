@@ -1,38 +1,38 @@
-#!/bin/bash
-#
+#!/bin/sh
 
 # get number of commits to squash
 n=$1
 
 # validate that n is an integer
-regex="^[0-9]+$"
-if ! [[ $n =~ $regex ]]; then
-    echo "error: Squash count must be an integer."
-    exit 0
-fi
+case "${1#[+-]}" in
+    ''|*[!0-9]*)
+        echo "error: Squash count must be an integer." && exit 0 ;;
+    *)
+esac
+
 
 # get the nth commit message
 skip=$(( $n - 1 ))
 nthMessage=$(git log --skip=$skip --max-count=1 --pretty=%B)
 
 #get and print all commit messages
-echo -e "Will squash the following commits: \n"
+echo "Will squash the following commits: \n"
 commits=$(git log -$n --oneline | awk '{print $1}')
 
 for i in $commits; do git log --format=%B -n 1 $i | tr -s '\n'; done
 
 #prompt to continue
-echo -e "\n"
+echo "\n"
 read -p "Continue? [y/n] " answer
 
 #Squash if yes
 if [ $answer = "y" ]
 then
-    echo -e "squashing"
+    echo "squashing"
     git reset --soft HEAD~$n
     git commit -m "$nthMessage"
     git push -f
 else
-    echo -e "not squashing"
+    echo "not squashing"
 fi
 exit 0

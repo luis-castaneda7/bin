@@ -2,6 +2,7 @@
 
 # Unfortunately for deb 11 we need to do this to packages that user libappindicator3-1
 
+sudo su
 dpkg-deb -x $1 unpack
 dpkg-deb --control $1 unpack/DEBIAN
 rm $1

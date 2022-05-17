@@ -1,18 +1,18 @@
-#!/bin/bash
+#!/bin/sh
 
-CURRENT_CONNECTION=$(xrandr -q | grep "connected" | awk '/ connected/ {print $1}' | wc -l)
-CHANGE() {
-    xrandr --output "$1" --auto --scale 1.0x1.0 $(xrandr -q | grep "connected" | grep -v "\b$1" | awk '{print "--output", $1, "--off"}' | paste -sd ' ' -)
-}
+# Get all possible displays
+allposs=$(xrandr -q | grep "connected")
 
+# Get all connected screens.
+screens=$(echo "$allposs" | awk '/ connected/ {print $1}')
 
-if [ $CURRENT_CONNECTION = 1 ]
-then
-	CHANGE "eDP-1"
-	pactl set-card-profile 0 output:analog-stereo
+onescreen() { # If only one output available or chosen.
+	xrandr --output "$1" --auto --scale 1.0x1.0 $(echo "$allposs" | grep -v "\b$1" | awk '{print "--output", $1, "--off"}' | paste -sd ' ' -)
 	nitrogen --restore
-else
-	CHANGE "HDMI-2"
-	pactl set-card-profile 0 output:hdmi-stereo-extra1
-	nitrogen --restore
-fi
+	}
+
+# If there's only one screen
+[ "$(echo "$screens" | wc -l)" -lt 2 ] &&
+	{ onescreen "$screens"; pactl set-card-profile 0 output:analog-stereo;notify-send "💻 Only one screen detected." "Using it in its optimal settings...";  exit ; nitrogen --restore;}
+
+onescreen HDMI2; pactl set-card-profile 0 output:hdmi-stereo-extra1

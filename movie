@@ -1,0 +1,8 @@
+#!/bin/sh
+
+query=$(printf '%s' "$*" | sed 's/ /%20/g')
+movie=$(curl -s https://yts.mx/browse-movies/$query/all/all/0/latest/0/all | grep -Po "https://yts.mx/movies/[a-zA-Z0-9?%-]*" | head -1)
+magnet=$(curl -s $movie | grep -Po "magnet:\?xt=urn:btih:[a-zA-Z0-9]*" | head -n 1)
+#final=`echo $magnet | awk '{print $2}'`
+peerflix --path $HOME/.movie --vlc $magnet 
+rm -rf $HOME/.movie/*
