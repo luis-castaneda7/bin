@@ -1,3 +1,0 @@
-#!/bin/bash
-
-echo -ne '3\0' > $HOME/.pomodoro
