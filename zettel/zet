@@ -1,0 +1,17 @@
+#!/bin/sh
+
+TITLE=$1
+ISOSEC=`isosec`
+DIR="$ZETTEL/$ISOSEC"
+
+mkdir $DIR
+cd $DIR
+touch "${TITLE}.md"
+
+{
+cat << EOF 
+# $TITLE
+EOF
+} >> "${TITLE}.md"
+
+vim "$DIR/${TITLE}.md"
