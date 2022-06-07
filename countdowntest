@@ -1,0 +1,3 @@
+#!/bin/bash
+
+st -e countdown 5s && exit

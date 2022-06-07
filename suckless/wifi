@@ -11,5 +11,12 @@ case "$(echo "$a" | dmenu -l 10 -i -p "Wifi")" in
 	"${names[0]}") nmcli -a device wifi connect $(echo "${names[0]}" | awk '{print $2}');;
 	"${names[1]}") nmcli -a device wifi connect $(echo "${names[1]}" | awk '{print $2}');;
 	"${names[2]}") nmcli -a device wifi connect $(echo "${names[2]}" | awk '{print $2}');;
+	"${names[3]}") nmcli -a device wifi connect $(echo "${names[2]}" | awk '{print $2}');;
+	"${names[4]}") nmcli -a device wifi connect $(echo "${names[2]}" | awk '{print $2}');;
+	"${names[5]}") nmcli -a device wifi connect $(echo "${names[2]}" | awk '{print $2}');;
+	"${names[6]}") nmcli -a device wifi connect $(echo "${names[2]}" | awk '{print $2}');;
+	"${names[7]}") nmcli -a device wifi connect $(echo "${names[2]}" | awk '{print $2}');;
+	"${names[8]}") nmcli -a device wifi connect $(echo "${names[2]}" | awk '{print $2}');;
+	"${names[9]}") nmcli -a device wifi connect $(echo "${names[2]}" | awk '{print $2}');;
 esac
 

@@ -1,3 +1,5 @@
 #!/bin/sh
 
-maim -s ~/Pictures/Screenshots/$(date +%H%M-%S).jpeg
+FILE=`date +%m%d%H%M%S`.jpeg
+maim -s ${FILE}
+mv $FILE `zenity --file-selection --directory`
