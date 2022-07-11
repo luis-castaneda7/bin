@@ -13,13 +13,13 @@ function get_brightness {
 }
 
 function send_notification {
-  icon="preferences-system-brightness-lock"
+  icon="sun"
   brightness=$(get_brightness)
   brightness=${brightness%.*}
   # Make the bar with the special character ─ (it's not dash -)
   # https://en.wikipedia.org/wiki/Box-drawing_character
   # Send the notification
-  dunstify -t 1000 -i "$icon" -r 5555 -u normal "☀️ $brightness"
+  dunstify -t 1000 -i "$icon" -r 5555 -u normal -h int:value:"$brightness" "$brightness" 
 
 }
 

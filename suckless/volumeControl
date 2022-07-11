@@ -18,13 +18,13 @@ function is_mute {
 }
 
 function send_notification {
-  iconSound="audio-volume-high"
-  iconMuted="audio-volume-muted"
+  iconSound="volume"
+  iconMuted="mute"
   if is_mute ; then
     dunstify -i $iconMuted -r 2593 -u normal "mute"
   else
     volume=$(get_volume)
-    dunstify -t 1000 -i $iconSound -r 2593 -u normal "🔉 $volume "
+    dunstify -t 1000 -i $iconSound -r 2593 -u normal -h int:value:"$volume" "$volume"
   fi
 }
 
